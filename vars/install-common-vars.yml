@@ -1,0 +1,27 @@
+---
+###############################################################################
+# Ansible SSH variables.
+###############################################################################
+ansible_public_key_file: "{{ lookup('env', 'PUBLIC_KEY')|default('~/.ssh/id_rsa.pub', true) }}"
+ansible_private_key_file: "{{ lookup('env', 'PRIVATE_KEY')|default('~/.ssh/id_rsa', true) }}"
+
+orchestration_user: "{{ lookup('env', 'ORCHESTRATION_USER')|default('root', true) }}"
+###############################################################################
+# OSD install on cloud variables.
+###############################################################################
+# Playbook flow control
+openshift_cleanup: "{{ lookup('env', 'OPENSHIFT_CLEANUP')|default(false, true) }}"
+openshift_install: "{{ lookup('env', 'OPENSHIFT_INSTALL')|default(true, true) }}"
+
+# OCM credentials
+ocm_url: "{{ lookup('env', 'OCM_URL')|default('https://api.stage.openshift.com/', true) }}"
+ocm_api_token: "{{ lookup('env', 'OCM_API_TOKEN') }}"
+
+# Cluster config
+ccs_enabled: "{{ lookup('env', 'CCS_ENABLED')|default('true', true) }}"
+cluster_name: "{{ lookup('env', 'CLUSTER_NAME') }}"
+managed: "{{ lookup('env', 'MANAGED')|default('true', true) }}"
+multi_az: "{{ lookup('env', 'MULTI_AZ')|default('false', true) }}"
+compute_count: "{{ lookup('env', 'COMPUTE_COUNT')|default(4, true) }}"
+compute_machine_type: "{{ lookup('env', 'COMPUTE_MACHINE_TYPE')|default('m5.2xlarge', true) }}"
+openshift_version: "{{ lookup('env', 'OPENSHIFT_VERSION')|default('openshift-v4.9.17', true) }}"

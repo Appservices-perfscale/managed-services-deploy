@@ -1,0 +1,27 @@
+{
+    "ccs": {
+      "enabled": {{ccs_enabled}}
+    },
+    "name": "{{cluster_name}}",
+    "managed": {{managed}},
+    "multi_az": {{multi_az}},
+    "aws":{
+        "access_key_id":"{{aws_access_key_id}}",
+        "secret_access_key":"{{aws_secret_access_key}}",
+        "account_id":"{{aws_account_id}}"
+     },
+    "region": {
+        "id": "{{aws_region}}",
+        "display_name": "{{aws_region}}",
+        "name": "{{aws_region}}"
+    },
+    "nodes": {
+        "compute": {{compute_count}},
+        "compute_machine_type": {
+            "id": "{{compute_machine_type}}"
+        }
+    },
+    "version": {
+        "id": "{{openshift_version}}"
+    }
+}

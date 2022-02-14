@@ -1,0 +1,30 @@
+---
+#
+# Tasks to setup OCM and install OSD
+#
+# Flow:
+# * Install OCM client
+# * OCM login
+# * Define the cluster config
+# * Install cluster
+#
+
+- name: Install OCM client
+  yum:
+    name: ocm-cli
+    enablerepo: ocm/tools
+    state: present
+
+- name: OCM login to connect to console.redhat.com
+  shell: ocm login --url={{ ocm_url }} --token={{ ocm_api_token }}
+
+- name: Setup cluster configuration
+  template:
+     src:  install-config-{{platform}}.json.j2 
+     dest: "{{ playbook_dir }}/cluster-config-{{platform}}"
+
+- name: Create cluster
+  shell: ocm post /api/clusters_mgmt/v1/clusters --body={{ playbook_dir }}/cluster-config-{{platform}}
+  register: cluster_status
+
+- name: 

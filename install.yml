@@ -1,0 +1,21 @@
+---
+#
+# Install OSD clusters using OCM
+#
+
+- name: Perform OSD cluster install
+  hosts: orchestration
+  become: true
+  gather_facts: true
+  remote_user: "{{orchestration_user}}"
+  vars_files:
+    - vars/install-common-vars.yml
+  pre_tasks:
+
+    - name: Include platform variables
+      include_vars:
+        file: "vars/install-on-{{ platform }}.yml"
+
+  roles:
+    - role: openshift-install
+      when: openshift_install|bool
