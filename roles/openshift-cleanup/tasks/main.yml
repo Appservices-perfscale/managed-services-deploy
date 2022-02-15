@@ -1,0 +1,34 @@
+---
+
+- name: Install OCM client
+  yum:
+    name: ocm-cli
+    enablerepo: ocm/tools
+    state: present
+
+- name: OCM login to connect to console.redhat.com
+  shell: ocm login --url={{ ocm_url }} --token={{ ocm_api_token }}
+
+- name: Check if cluster exists
+  shell: ocm list clusters --no-headers --columns id {{ cluster_name }}
+  register: cluster_status
+
+- block:
+  - name: Get cluster id
+    shell: ocm list clusters --no-headers --columns id {{ cluster_name }}
+    register: cluster_id
+
+  - name: Cleanup cluster
+    shell: ocm delete cluster {{ cluster_id.stdout | trim }}
+
+  - name: Wait for 60 seconds for the API to initiate the deletion before checking the status
+    pause:
+       minutes: 1
+
+  - name: Get cluster status and wait for the cluster to get deleted with a 30 minutes timeout
+    shell: ocm list clusters --no-headers --columns state {{ cluster_name }}
+    register: cluster_status
+    until: cluster_status.stdout | trim == "uninstalling"
+    retries: 18
+    delay: 100
+  when: cluster_status.stdout | length > 0

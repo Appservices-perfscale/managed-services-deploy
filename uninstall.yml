@@ -1,0 +1,16 @@
+---
+#
+# Delete OSD clusters using OCM
+#
+
+- name: Perform OSD cluster uninstall
+  hosts: orchestration
+  become: true
+  gather_facts: true
+  remote_user: "{{orchestration_user}}"
+  vars_files:
+    - vars/install-common-vars.yml
+
+  roles:
+    - role: openshift-cleanup
+      when: openshift_cleanup|bool

@@ -34,6 +34,6 @@
 - name: Get cluster status and wait till it's installed with a 60 minutes timeout
   shell: ocm list clusters --no-headers --columns state {{ cluster_name }}
   register: cluster_status
-  until: cluster_status.stdout == "ready" 
+  until: cluster_status.stdout | trim == "ready" 
   retries: 36
   delay: 100

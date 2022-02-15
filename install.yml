@@ -17,5 +17,7 @@
         file: "vars/install-on-{{ platform }}.yml"
 
   roles:
+    - role: openshift-cleanup
+      when: openshift_cleanup|bool
     - role: openshift-install
       when: openshift_install|bool

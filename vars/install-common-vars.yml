@@ -10,7 +10,7 @@ orchestration_user: "{{ lookup('env', 'ORCHESTRATION_USER')|default('root', true
 # OSD install on cloud variables.
 ###############################################################################
 # Playbook flow control
-openshift_cleanup: "{{ lookup('env', 'OPENSHIFT_CLEANUP')|default(false, true) }}"
+openshift_cleanup: "{{ lookup('env', 'OPENSHIFT_CLEANUP')|default(true, true) }}"
 openshift_install: "{{ lookup('env', 'OPENSHIFT_INSTALL')|default(true, true) }}"
 
 # OCM credentials
