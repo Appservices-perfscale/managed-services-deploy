@@ -21,10 +21,19 @@
 - name: Setup cluster configuration
   template:
      src:  install-config-{{platform}}.json.j2 
-     dest: "{{ playbook_dir }}/cluster-config-{{platform}}"
+     dest: "{{ playbook_dir }}/cluster-config-{{ platform }}"
 
 - name: Create cluster
-  shell: ocm post /api/clusters_mgmt/v1/clusters --body={{ playbook_dir }}/cluster-config-{{platform}}
+  shell: ocm post /api/clusters_mgmt/v1/clusters --body={{ playbook_dir }}/cluster-config-{{ platform }}
   register: cluster_status
 
-- name: 
+- name: Get cluster id
+  shell: ocm list clusters --no-headers --columns id {{ cluster_name }} 
+  register: cluster_id
+
+- name: Get cluster status and wait till it's installed with a 60 minutes timeout
+  shell: ocm list clusters --no-headers --columns state {{ cluster_name }}
+  register: cluster_status
+  until: cluster_status.stdout == "ready" 
+  retries: 36
+  delay: 100
