@@ -2,6 +2,11 @@
 
 This repository hosts playbooks to install and uninstall OpenShift Dedicated clusters using OCM.
 
+
+# OpenShift Dedicated install on AWS
+Refer [docs](docs/openshift_on_aws.md)
+
+
 ## Quickstart Usage Example
 
 ```
