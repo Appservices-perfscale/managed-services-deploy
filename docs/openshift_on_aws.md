@@ -72,3 +72,7 @@ Machine type or flavor for the worker/compute nodes in AWS
 ### OPENSHIFT_VERSION
 Default: openshift-v4.9.17
 OpenShift version to install
+
+### KUBECONFIG
+Default: /root/.kube/config
+Location to copy the kubeconfig of the cluster

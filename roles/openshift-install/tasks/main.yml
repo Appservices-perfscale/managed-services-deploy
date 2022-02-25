@@ -9,11 +9,15 @@
 # * Install cluster
 #
 
-- name: Install OCM client
+- name: Install OCM client and dependencies
   yum:
-    name: ocm-cli
+    name: {{ packages }}
     enablerepo: ocm/tools
     state: present
+  vars:
+    packages:
+      - ocm-cli
+      - jq
 
 - name: OCM login to connect to console.redhat.com
   shell: ocm login --url={{ ocm_url }} --token={{ ocm_api_token }}
@@ -37,3 +41,10 @@
   until: cluster_status.stdout | trim == "ready" 
   retries: 36
   delay: 100
+
+- name: Capture kubeconfig
+  shell: ocm get /api/clusters_mgmt/v1/clusters/{{ cluster_id.stdout }}/credentials | jq -r .kubeconfig
+  register: kubeconfig
+
+- name: Copy kubeconfig to default location
+  shell: cat {{ kubeconfig.stdout }} > {{ kubeconfig_path }}
