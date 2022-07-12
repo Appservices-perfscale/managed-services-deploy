@@ -11,7 +11,7 @@
 
 - name: Install OCM client and dependencies
   yum:
-    name: {{ packages }}
+    name: "{{ packages }}"
     enablerepo: ocm/tools
     state: present
   vars:

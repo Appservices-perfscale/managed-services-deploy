@@ -18,7 +18,7 @@ Refer [docs](docs/openshift_on_aws.md)
 
 $ git clone https://github.com/chaitanyaenr/managed-services-deploy.git
 $ cd managed-services-deploy
-$ cp OCP-4.X/inventory.example inventory
+$ cp inventory.example inventory
 $ # Edit inventory and add your expected orchestration host
 $ # Edit deployment variables (Ex vi vars/install-common-vars.yml and vi vars/install-on-aws.yml) or define env variables
 $ ansible-playbook -v -i inventory install.yml -e platform=aws
