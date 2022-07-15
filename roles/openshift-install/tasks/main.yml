@@ -41,9 +41,5 @@
   retries: 36
   delay: 100
 
-- name: Capture kubeconfig
-  shell: ocm get /api/clusters_mgmt/v1/clusters/{{ cluster_id.stdout }}/credentials | jq -r .kubeconfig
-  register: kubeconfig
-
-- name: Copy kubeconfig to default location
-  shell: cat {{ kubeconfig.stdout }} > {{ kubeconfig_path }}
+- name: Capture kubeconfig and copy to desired location
+  shell: ocm get /api/clusters_mgmt/v1/clusters/{{ cluster_id.stdout }}/credentials | jq -r .kubeconfig >> {{ kubeconfig_path }}

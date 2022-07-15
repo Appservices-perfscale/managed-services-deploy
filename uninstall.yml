@@ -3,7 +3,7 @@
 # Delete OSD clusters using OCM
 #
 
-- name: Perform OSD cluster uninstall
+- name: Perform OSD and HyperShift cluster uninstall
   hosts: orchestration
   become: true
   gather_facts: true
@@ -12,5 +12,7 @@
     - vars/install-common-vars.yml
 
   roles:
+    - role: hypershift-cleanup
+      when: hypershift_cleanup|bool 
     - role: openshift-cleanup
       when: openshift_cleanup|bool
