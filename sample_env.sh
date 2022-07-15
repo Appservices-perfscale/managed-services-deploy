@@ -1,0 +1,29 @@
+#!/bin/bash 
+
+export AWS_ACCESS_KEY_ID=
+export AWS_SECRET_ACCESS_KEY=
+export AWS_REGION=us-west-2
+export AWS_ACCOUNT_ID=
+export OPENSHIFT_CLEANUP=false
+export OPENSHIFT_INSTALL=false
+export HYPERSHIFT_INSTALL=true
+export OCM_URL=https://api.stage.openshift.com/
+export OCM_API_TOKEN=
+export PULL_SECRET=''
+export CCS_ENABLED=true
+export CLUSTER_NAME=chaos
+export MANAGED=true
+export MULTI_AZ=true
+export COMPUTE_COUNT=3
+export COMPUTE_MACHINE_TYPE=m5.2xlarge
+export OPENSHIFT_VERSION=openshift-v4.11.0-rc.4-candidate
+export NUMBER_OF_HOSTED_CLUSTER=2
+export COMPUTE_WORKERS_NUMBER=2
+export NETWORK_TYPE=OVNKubernetes
+export REPLICA_TYPE=HighlyAvailable
+export RELEASE_IMAGE=quay.io/openshift-release-dev/ocp-release:4.11.0-rc.1-x86_64
+export HYPERSHIFT_OPERATOR_IMAGE=quay.io/hypershift/hypershift-operator:4.11
+export HYPERSHIFT_CLI_INSTALL=true
+export HYPERSHIFT_CLI_VERSION=release-4.11
+export HYPERSHIFT_CLI_FORK=https://github.com/openshift/hypershift
+export ROSA_ENVIRONMENT=staging

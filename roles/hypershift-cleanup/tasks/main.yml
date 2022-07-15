@@ -1,0 +1,33 @@
+---
+#
+# Tasks to setup hypershift and install hosted clusters
+#
+# Flow:
+# * clone e2e-benchmarking
+# * run hypershift cleanup
+
+
+- name: clone e2e-benchmarking
+  ansible.builtin.git:
+    repo: 'https://github.com/cloud-bulldozer/e2e-benchmarking.git'
+    dest: /tmp/e2e-benchmarking
+    version: master
+
+- name: run hypershift cleanup
+  ansible.builtin.shell: ./run.sh clean | tee "{{ playbook_dir }}/cleanup.log"
+  args:
+    chdir: /tmp/e2e-benchmarking/workloads/hyper-scale
+  environment:
+    PULL_SECRET: "{{ pull_secret }}"
+    ROSA_TOKEN: "{{ ocm_api_token }}"
+    ROSA_ENVIRONMENT: "{{ rosa_environment }}"
+    NUMBER_OF_HOSTED_CLUSTER: "{{ number_of_hosted_cluster }}"
+    COMPUTE_WORKERS_NUMBER: "{{ compute_workers_number }}"
+    NETWORK_TYPE: "{{ network_type }}"
+    REPLICA_TYPE: "{{ replica_type }}"
+    RELEASE_IMAGE: "{{ release_image }}"
+    CPO_IMAGE: "{{ cpo_image }}"
+    HYPERSHIFT_OPERATOR_IMAGE: "{{ hypershift_operator_image }}"
+    HYPERSHIFT_CLI_INSTALL: "{{ hypershift_cli_install }}"
+    HYPERSHIFT_CLI_VERSION: "{{ hypershift_cli_version }}"
+    HYPERSHIFT_CLI_FORK: "{{ hypershift_cli_fork }}"

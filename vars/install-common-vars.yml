@@ -10,9 +10,11 @@ orchestration_user: "{{ lookup('env', 'ORCHESTRATION_USER')|default('root', true
 # OSD install on cloud variables.
 ###############################################################################
 # Playbook flow control
-openshift_cleanup: "{{ lookup('env', 'OPENSHIFT_CLEANUP')|default(true, true) }}"
+openshift_cleanup: "{{ lookup('env', 'OPENSHIFT_CLEANUP')|default(false, true) }}"
 openshift_install: "{{ lookup('env', 'OPENSHIFT_INSTALL')|default(true, true) }}"
 thanos_enable: "{{ lookup('env', 'THANOS_ENABLE')|default('false', true) }}"
+hypershift_cleanup: "{{ lookup('env', 'HYPERSHIFT_CLEANUP')|default(false, true) }}"
+hypershift_install: "{{ lookup('env', 'HYPERSHIFT_INSTALL')|default(true, true) }}"
 
 # OCM credentials
 ocm_url: "{{ lookup('env', 'OCM_URL')|default('https://api.stage.openshift.com/', true) }}"
@@ -22,8 +24,8 @@ ocm_api_token: "{{ lookup('env', 'OCM_API_TOKEN') }}"
 ccs_enabled: "{{ lookup('env', 'CCS_ENABLED')|default('true', true) }}"
 cluster_name: "{{ lookup('env', 'CLUSTER_NAME') }}"
 managed: "{{ lookup('env', 'MANAGED')|default('true', true) }}"
-multi_az: "{{ lookup('env', 'MULTI_AZ')|default('false', true) }}"
-compute_count: "{{ lookup('env', 'COMPUTE_COUNT')|default(4, true) }}"
+multi_az: "{{ lookup('env', 'MULTI_AZ')|default('true', true) }}"
+compute_count: "{{ lookup('env', 'COMPUTE_COUNT')|default(3, true) }}"
 compute_machine_type: "{{ lookup('env', 'COMPUTE_MACHINE_TYPE')|default('m5.2xlarge', true) }}"
 network_type: "{{ lookup('env', NETWORK_TYPE'}|default('OVNKubernetes', true) }}"
 openshift_version: "{{ lookup('env', 'OPENSHIFT_VERSION')|default('openshift-v4.11.0-rc.5-x86_64-candidate', true) }}"
@@ -31,3 +33,18 @@ kubeconfig_path: "{{ lookup('env', 'KUBECONFIG')|default('/root/.kube/config', t
 
 # Thanos
 thanos_receiver_url: "{{ lookup('env', 'THANOS_RECEIVER_URL') }}"
+
+# Hypershift config
+pull_secret: "{{ lookup('env', 'PULL_SECRET') }}"
+rosa_token: "{{ lookup('env', 'OCM_API_TOKEN') }}"
+rosa_environment: "{{ lookup('env', 'ROSA_ENVIRONMENT')|default(staging, true) }}"
+number_of_hosted_cluster: "{{ lookup('env', 'NUMBER_OF_HOSTED_CLUSTER')|default(2, true) }}"
+compute_workers_number: "{{ lookup('env', 'COMPUTE_WORKERS_NUMBER')|default(2, true) }}"
+network_type: "{{ lookup('env', 'NETWORK_TYPE')|default('OVNKubernetes', true) }}"
+replica_type: "{{ lookup('env', 'REPLICA_TYPE')|default('HighlyAvailable', true) }}"
+release_image: "{{ lookup('env', 'RELEASE_IMAGE')|default('quay.io/openshift-release-dev/ocp-release:4.11.0-rc.1-x86_64', true) }}"
+cpo_image: "{{ lookup('env', 'CPO_IMAGE')|default('quay.io/hypershift/hypershift:latest', true) }}"
+hypershift_operator_image: "{{ lookup('env', 'HYPERSHIFT_OPERATOR_IMAGE')|default('quay.io/hypershift/hypershift-operator:4.11', true) }}"
+hypershift_cli_install: "{{ lookup('env', 'HYPERSHIFT_CLI_INSTALL')|default(true, true) }}"
+hypershift_cli_version: "{{ lookup('env', 'HYPERSHIFT_CLI_VERSION')|default('release-4.11', true) }}"
+hypershift_cli_fork: "{{ lookup('env', 'HYPERSHIFT_CLI_FORK')|default('https://github.com/openshift/hypershift', true) }}"
