@@ -1,0 +1,24 @@
+---
+
+- name: Get cluster version
+  command: |
+    {%raw%}oc get clusterversion version -o go-template --template="{{.status.desired.version}}"{%endraw%}
+  register: cluster_version
+  environment:
+    KUBECONFIG: "{{ kubeconfig_path }}"
+
+- name: Get platform
+  command: |
+    {%raw%}oc get infrastructure/cluster -o go-template --template="{{.status.platform}}"{%endraw%}
+  register: platform
+  environment:
+    KUBECONFIG: "{{ kubeconfig_path }}"
+- name: setup agent template
+  template:
+    src: grafana-agent.yml.j2
+    dest: "{{ playbook_dir }}/grafana-agent.yml"
+
+- name: deploy grafana agent
+  shell: oc create -f "{{ playbook_dir }}/grafana-agent.yml"
+  environment:
+    KUBECONFIG: "{{ kubeconfig_path }}"

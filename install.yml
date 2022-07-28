@@ -21,3 +21,5 @@
       when: openshift_cleanup|bool
     - role: openshift-install
       when: openshift_install|bool
+    - role: thanos
+      when: thanos_enable|bool
