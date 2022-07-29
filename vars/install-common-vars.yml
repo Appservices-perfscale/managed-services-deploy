@@ -25,7 +25,8 @@ managed: "{{ lookup('env', 'MANAGED')|default('true', true) }}"
 multi_az: "{{ lookup('env', 'MULTI_AZ')|default('false', true) }}"
 compute_count: "{{ lookup('env', 'COMPUTE_COUNT')|default(4, true) }}"
 compute_machine_type: "{{ lookup('env', 'COMPUTE_MACHINE_TYPE')|default('m5.2xlarge', true) }}"
-openshift_version: "{{ lookup('env', 'OPENSHIFT_VERSION')|default('openshift-v4.9.17', true) }}"
+network_type: "{{ lookup('env', NETWORK_TYPE'}|default('OVNKubernetes', true) }}"
+openshift_version: "{{ lookup('env', 'OPENSHIFT_VERSION')|default('openshift-v4.11.0-rc.5-x86_64-candidate', true) }}"
 kubeconfig_path: "{{ lookup('env', 'KUBECONFIG')|default('/root/.kube/config', true) }}"
 
 # Thanos

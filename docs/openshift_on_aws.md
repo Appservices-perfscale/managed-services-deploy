@@ -69,8 +69,11 @@ Number of computer/worker nodes in the cluster
 Default: m5.2xlarge
 Machine type or flavor for the worker/compute nodes in AWS
 
+### NETWORK_TYPE
+Default: OVNKubernetes
+
 ### OPENSHIFT_VERSION
-Default: openshift-v4.9.17
+Default: openshift-v4.11.0-rc.5-x86_64-candidate
 OpenShift version to install
 
 ### KUBECONFIG

@@ -29,7 +29,6 @@
 
 - name: Create cluster
   shell: ocm post /api/clusters_mgmt/v1/clusters --body={{ playbook_dir }}/cluster-config-{{ platform }}
-  register: cluster_status
 
 - name: Get cluster id
   shell: ocm list clusters --no-headers --columns id {{ cluster_name }} 
