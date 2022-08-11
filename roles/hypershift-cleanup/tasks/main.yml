@@ -9,9 +9,9 @@
 
 - name: clone e2e-benchmarking
   ansible.builtin.git:
-    repo: 'https://github.com/cloud-bulldozer/e2e-benchmarking.git'
+    repo: 'https://github.com/mukrishn/e2e-benchmarking.git'
     dest: /tmp/e2e-benchmarking
-    version: master
+    version: hypershift
 
 - name: run hypershift cleanup
   ansible.builtin.shell: ./run.sh clean | tee "{{ playbook_dir }}/cleanup.log"
