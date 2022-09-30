@@ -27,7 +27,7 @@
     dest: /tmp/e2e-benchmarking
     version: master
 
-- name: run installer 
+- name: run installer
   ansible.builtin.shell: ./run.sh build | tee "{{ playbook_dir }}/install.log"
   args:
     chdir: /tmp/e2e-benchmarking/workloads/hyper-scale

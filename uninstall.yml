@@ -13,6 +13,6 @@
 
   roles:
     - role: hypershift-cleanup
-      when: hypershift_cleanup|bool 
+      when: hypershift_cleanup|bool
     - role: openshift-cleanup
       when: openshift_cleanup|bool
