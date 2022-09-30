@@ -1,0 +1,24 @@
+name: Lint
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+jobs:
+  lint:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - name: Install linters
+        run: |
+          pip install --upgrade pip
+          pip install ansible-lint
+      - name: Check with yamllint
+        run: |
+          yamllint -d "{extends: default, rules: {line-length: {max: 180}}}" `find . -name "*.yml"`
